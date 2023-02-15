@@ -20,24 +20,52 @@
       <section id="monster" class="container">
         <h2>Monster Health</h2>
         <div class="healthbar">
-          <div class="healthbar__value"></div>
+          <div v-bind:style="monsterBarStyles" class="healthbar__value"></div>
         </div>
       </section>
       <section id="player" class="container">
         <h2>Your Health</h2>
         <div class="healthbar">
-          <div class="healthbar__value"></div>
+          <div v-bind:style="playerBarStyles" class="healthbar__value"></div>
         </div>
       </section>
-      <section id="controls">
-        <button>ATTACK</button>
-        <button>SPECIAL ATTACK</button>
-        <button>HEAL</button>
-        <button>SURRENDER</button>
+
+      <!-- Conditional content below. only show if winner is determined.  -->
+
+      <section v-if="winner" class="resultContainer">
+        <h2>GAME OVER!</h2>
+        <h3 v-if="winner === 'player'">You WON!</h3>
+        <h3 v-else-if="winner === 'monster'">You LOST!</h3>
+        <h3 v-else>It's a DRAW!</h3>
+
+        <button v-on:click="startGame">Restart Game</button>
       </section>
+
+      <!-- Below section is show as long as winner is not determined -->
+
+      <section v-show="!winner" id="controls">
+        <button @click="attackMonster">ATTACK</button>
+
+        <button
+          v-bind:disabled="specialAttackIsAvailable"
+          @click="specialAttackMonster"
+        >
+          SPECIAL ATTACK
+        </button>
+        <button @click="healPlayer">HEAL</button>
+        <button v-on:click="surrender">SURRENDER</button>
+      </section>
+
       <section id="log" class="container">
         <h2>Battle Log</h2>
-        <ul></ul>
+        <ul v-if="fightIsOn">
+          <!-- Show parent if available -->
+          <!-- Need to use v-for="" -->
+
+          <li v-for="(attack, index) in playerAttacks">
+            {{computeLog(index)}}
+          </li>
+        </ul>
       </section>
     </div>
   </body>

@@ -47,6 +47,17 @@ section {
   border-radius: 12px;
 }
 
+.resultContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  border-radius: 5px;
+  box-shadow: 1px 1px 5px 2px tan;
+  flex-direction: column;
+  margin: 3rem auto;
+  width: 90%;
+}
+
 #monster h2,
 #player h2 {
   margin: 0.25rem;
@@ -54,7 +65,8 @@ section {
 
 #controls {
   display: flex;
-  flex-direction: row;
+  /* flex-direction: row; */
+  flex-direction: column;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
@@ -99,7 +111,7 @@ button:disabled {
 }
 
 #log li {
-  margin: 0.5rem 0;
+  margin: 1rem 0;
 }
 
 .log--player {
